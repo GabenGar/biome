@@ -1099,7 +1099,7 @@ impl JsCallExpression {
     /// Each index inside "indices" should be unique.
     /// "indices" must be sorted.
     ///
-    /// Supports maximum of 16 indices to avoid stack overflow. Eeach argument will consume:
+    /// Supports maximum of 16 indices to avoid stack overflow. Each argument will consume:
     ///
     /// - 8 bytes for the `Option<AnyJsCallArgument>` result;
     /// - 8 bytes for the [usize] argument.

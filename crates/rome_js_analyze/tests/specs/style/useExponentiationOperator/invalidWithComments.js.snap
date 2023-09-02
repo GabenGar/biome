@@ -1,0 +1,73 @@
+---
+source: crates/rome_js_analyze/tests/spec_tests.rs
+expression: invalidWithComments.js
+---
+# Input
+```js
+/* comment */Math.pow(a, b)
+Math.pow(a, b)/* comment */;
+Math.pow(a, b)// comment
+```
+
+# Diagnostics
+```
+invalidWithComments.js:1:14 lint/style/useExponentiationOperator  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Use the '**' operator instead of 'Math.pow'.
+  
+  > 1 │ /* comment */Math.pow(a, b)
+      │              ^^^^^^^^^^^^^^
+    2 │ Math.pow(a, b)/* comment */;
+    3 │ Math.pow(a, b)// comment
+  
+  i Suggested fix: Use the '**' operator instead of 'Math.pow'.
+  
+    1   │ - /*·comment·*/Math.pow(a,·b)
+      1 │ + /*·comment·*/a·**·b
+    2 2 │   Math.pow(a, b)/* comment */;
+    3 3 │   Math.pow(a, b)// comment
+  
+
+```
+
+```
+invalidWithComments.js:2:1 lint/style/useExponentiationOperator  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Use the '**' operator instead of 'Math.pow'.
+  
+    1 │ /* comment */Math.pow(a, b)
+  > 2 │ Math.pow(a, b)/* comment */;
+      │ ^^^^^^^^^^^^^^
+    3 │ Math.pow(a, b)// comment
+  
+  i Suggested fix: Use the '**' operator instead of 'Math.pow'.
+  
+    1 1 │   /* comment */Math.pow(a, b)
+    2   │ - Math.pow(a,·b)/*·comment·*/;
+      2 │ + a·**·b/*·comment·*/;
+    3 3 │   Math.pow(a, b)// comment
+  
+
+```
+
+```
+invalidWithComments.js:3:1 lint/style/useExponentiationOperator  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Use the '**' operator instead of 'Math.pow'.
+  
+    1 │ /* comment */Math.pow(a, b)
+    2 │ Math.pow(a, b)/* comment */;
+  > 3 │ Math.pow(a, b)// comment
+      │ ^^^^^^^^^^^^^^
+  
+  i Suggested fix: Use the '**' operator instead of 'Math.pow'.
+  
+    1 1 │   /* comment */Math.pow(a, b)
+    2 2 │   Math.pow(a, b)/* comment */;
+    3   │ - Math.pow(a,·b)//·comment
+      3 │ + a·**·b//·comment
+  
+
+```
+
+
